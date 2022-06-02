@@ -15,7 +15,7 @@ const catchCost = (evt) => (cost = evt.target.value);
 const ejecutar = () => {
   mostrarNombreYmonto(peopleName, cost);
   inputName.value = "";
-  inputCost.value;
+  inputCost.value = 0;
 };
 
 function mostrarNombreYmonto(_nombre, _monto) {
