@@ -28,15 +28,13 @@ const restartValues = () => {
   cost = null;
 };
 
-const drawLogs = () => {
+const drawLogs = (obj) => {
   console.log(logs);
-  logs.map((item) => {
-    log.querySelector("h5").textContent = item.name;
-    log.querySelector("span").textContent = `$${item.cost}`;
-    log.querySelector("button").dataset.id = item.id;
-    const clone = log.cloneNode(true);
-    fragment.appendChild(clone);
-  });
+  log.querySelector("h5").textContent = obj.name;
+  log.querySelector("span").textContent = `$${obj.cost}`;
+  log.querySelector("button").dataset.id = obj.id;
+  const clone = log.cloneNode(true);
+  fragment.appendChild(clone);
   listLogs.appendChild(fragment);
 };
 
@@ -56,7 +54,8 @@ const execute = () => {
 };
 
 const submitNameAndCost = (_name, _cost) => {
-  logs.push({ id: Math.random, name: _name, cost: _cost });
-  drawLogs();
+  const newLog = { id: Math.random, name: _name, cost: _cost };
+  logs.push(newLog);
+  drawLogs(newLog);
   // listLogs.innerHTML += `<li class="list-group-item">${_name}: ${_cost}</li>`;
 };
