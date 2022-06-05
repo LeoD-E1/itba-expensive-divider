@@ -4,15 +4,15 @@ const submitButton = document.getElementById("submit");
 const listLogs = document.getElementById("listLogs");
 const log = document.getElementById("log").content;
 const fragment = document.createDocumentFragment();
+const total = document.getElementById("totalCost");
+const average = document.getElementById("averageCost");
 
 let peopleName = "";
 let cost = 0;
 
 const logs = [];
 let totalCost = 0;
-// document.addEventListener("DOMContentLoaded", () => {
-
-// })
+let averageCost = 0;
 
 inputName.addEventListener("change", (evt) => catchName(evt));
 inputCost.addEventListener("change", (evt) => catchCost(evt));
@@ -29,17 +29,16 @@ const restartValues = () => {
 };
 
 const drawLogs = (obj) => {
-  console.log(logs);
   log.querySelector("h5").textContent = obj.name;
   log.querySelector("span").textContent = `$${obj.cost}`;
-  log.querySelector("button").dataset.id = obj.id;
+  // log.querySelector("button").dataset.id = obj.id;
   const clone = log.cloneNode(true);
   fragment.appendChild(clone);
   listLogs.appendChild(fragment);
 };
 
 const execute = () => {
-  if (peopleName && cost !== 0) {
+  if (peopleName && cost > 0) {
     try {
       submitNameAndCost(peopleName, cost);
       restartValues();
@@ -57,5 +56,8 @@ const submitNameAndCost = (_name, _cost) => {
   const newLog = { id: Math.random, name: _name, cost: _cost };
   logs.push(newLog);
   drawLogs(newLog);
-  // listLogs.innerHTML += `<li class="list-group-item">${_name}: ${_cost}</li>`;
+  totalCost = totalCost + parseInt(_cost);
+  averageCost = totalCost / logs.length;
+  total.innerHTML = `$${totalCost}`;
+  average.innerHTML = `$${averageCost}`;
 };
